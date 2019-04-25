@@ -4,6 +4,7 @@ from scipy.interpolate import UnivariateSpline as interpolate
 from matplotlib import pyplot as pl
 
 from scipy.stats import linregress
+from os.path import join
 
 import numpy as np
 import os
@@ -75,12 +76,13 @@ def opt(x, y, tol=0.1):
 
     return xcut, left, right
 
-items = os.listdir()
+datadir = 'data'
+items = os.listdir(datadir)
 
 data = {}
 for item in items:
     try:
-        data[item] = np.loadtxt(item)
+        data[item] = np.loadtxt(join(datadir, item))
     except Exception:
         pass
 
