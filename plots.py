@@ -136,7 +136,7 @@ figtg, axtg = pl.subplots()
 axtg.plot(rates, tg, linestyle='none', marker='.')
 
 axtg.set_xscale('log')
-axtg.set_xlabel('Rates')
+axtg.set_xlabel('Rates [K/s]')
 axtg.set_ylabel('Tg [K]')
 
 axtg.grid()
