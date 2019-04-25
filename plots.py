@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from scipy.interpolate import UnivariateSpline as interpolate
 from matplotlib import pyplot as pl
 
@@ -94,7 +96,7 @@ for key, value in data.items():
     y = y[condition]
 
     s = interpolate(x=x, y=y, k=5, s=1)
-    xfit = np.linspace(x[0], x[-1], 100)
+    xfit = np.linspace(x[0], x[-1], 1000)
     yfit = s(xfit)
 
     xcut, left, right = opt(xfit, yfit)
