@@ -74,7 +74,7 @@ def opt(x, y, tol=0.1):
     left = x[n-lcut]
     right = x[rcut]
 
-    return xcut, left, right
+    return xcut, left, right, ldata, rdata, middle_rmse
 
 datadir = 'data'
 items = os.listdir(datadir)
@@ -101,7 +101,7 @@ for key, value in data.items():
     xfit = np.linspace(x[0], x[-1], 1000)
     yfit = s(xfit)
 
-    xcut, left, right = opt(xfit, yfit)
+    xcut, left, right, ldata, rdata, middle_rmse = opt(xfit, yfit)
 
     rate = key.strip('plotBoltzmann')
     if 'times' in rate:
@@ -130,6 +130,22 @@ for key, value in data.items():
 
     fig.tight_layout()
     fig.savefig('figures/'+key)
+    pl.close('all')
+
+    fig, ax = pl.subplots()
+
+    ax.plot(ldata[:, 0], ldata[:, 1], label='left fits')
+    ax.plot(rdata[:, 0], rdata[:, 1], label='right fits')
+    ax.plot(ldata[:, 0], middle_rmse, label='left and right fits')
+
+    ax.set_title(key)
+    ax.set_xlabel('End Temperature [K]')
+    ax.set_ylabel('RMSE')
+    ax.grid()
+    ax.legend()
+    
+    fig.tight_layout()
+    fig.savefig('figures/'+key+'_msqe')
     pl.close('all')
 
 figtg, axtg = pl.subplots()
